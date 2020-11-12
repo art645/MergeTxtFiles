@@ -7,21 +7,24 @@ import java.util.TreeMap;
 
         public static void main (String[] args) {
             MergeTxtFiles mergeTxtFiles = new MergeTxtFiles();
-            String directoryPath = mergeTxtFiles.readDirectoryPathFromConsole();
-            Map<String,File> sortedTextFiles = mergeTxtFiles.getTextFiles(directoryPath);
-            if (mergeTxtFiles.isDirectoryCorrect(sortedTextFiles)) {
+            mergeTxtFiles.runMergeTxtFilesApp();
+        }
+        public void runMergeTxtFilesApp() {
+            String directoryPath = readDirectoryPathFromConsole();
+            Map<String,File> sortedTextFiles = getTextFiles(directoryPath);
+            if (isDirectoryCorrect(sortedTextFiles)) {
                 StringBuffer unionText = new StringBuffer();
                 for (Map.Entry<String, File> pair : sortedTextFiles.entrySet()) {
-                    unionText.append(mergeTxtFiles.readTxtFile(pair.getValue()));
+                    unionText.append(readTxtFile(pair.getValue()));
                 }
-                mergeTxtFiles.writeFile(unionText.toString());
+                writeFile(unionText.toString());
                 System.out.println("Слияние текстовых файлов прошло успешно.");
             }
         }
-
         public String readDirectoryPathFromConsole() {
             String directoryPath = null;
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
+                System.out.println("Введите требуемую дирректорию");
                 directoryPath = reader.readLine();
             }
             catch(IOException e) {}
